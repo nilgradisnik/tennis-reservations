@@ -2,6 +2,14 @@
 
 Build a simple web server where people can reserve an hourly time slot to play tennis on a single tennis court. This tennis court is open every day from 10am to 10pm which gives tennis players 12 hours of play time each day.
 
+## Development
+
+1. Clone the repository `git clone https://github.com/nilgradisnik/tennis-reservations.git`
+2. Create a new branch `git checkout -b my-work`
+3. Commit your changes `git add --all; git commit -a`
+4. Push your changes `git push`
+5. Create a pull request on github
+
 ## API
 
 Use [Flask](http://flask.pocoo.org/) Python web framework. Server should implmement [REST API](http://www.restapitutorial.com/) which will respond to HTTP requests.
@@ -13,7 +21,7 @@ Prints a simple welcome message `Welcome to tennis reservations`.
 
 ## `GET /reservations`
 
-List all hourly time slots. If available is `true` it means that time slot is available and `player` will contain a name of a player that made that reservation.
+List all hourly time slots. If `available` is set to `true` it means that time slot is available and `player` will contain a name of a player that made that reservation.
 
 ##### Successful Response
 
@@ -30,7 +38,7 @@ List all hourly time slots. If available is `true` it means that time slot is av
   "12pm": {
     "available": true,
     "player": null
-  },,
+  },
   ...
 }
 ```
