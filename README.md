@@ -103,8 +103,9 @@ FLASK_APP=server.py flask run
 
 ## Testing
 
-Testing can be done using `curl` command
+1. Make sure you have the server running
+2. Install `pip install requests nose` and then run
 
 ```console
-curl localhost:5000/
+nosetests -d
 ```
