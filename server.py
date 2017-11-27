@@ -26,7 +26,6 @@ def api_reservations():
         resp.headers['Link'] = 'http://localhost:5000'
 
         return resp
-        return "ECHO: GET\n"
 
     elif request.method == 'POST':
         if request.headers['Content-Type'] == 'text/plain':
