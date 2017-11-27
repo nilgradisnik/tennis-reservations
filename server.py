@@ -2,6 +2,7 @@
 from flask import Flask
 from flask import Response
 from flask import json
+from flask import request
 
 app = Flask(__name__)
 
@@ -16,11 +17,29 @@ for hour in ["10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "
 def index():
     return "Welcome to tennis reservations"
 
-@app.route('/reservations', methods = ['GET'])
+@app.route('/reservations', methods = ['GET', 'POST'])
 def api_reservations():
-    js = json.dumps(RESERVATIONS)
+    if request.method == 'GET':
+        js = json.dumps(RESERVATIONS)
 
-    resp = Response(js, status=200, mimetype='application/json')
-    resp.headers['Link'] = 'http://localhost:5000'
+        resp = Response(js, status=200, mimetype='application/json')
+        resp.headers['Link'] = 'http://localhost:5000'
 
-    return resp
+        return resp
+        return "ECHO: GET\n"
+
+    elif request.method == 'POST':
+        if request.headers['Content-Type'] == 'text/plain':
+            return "Text Message: " + request.data
+
+        elif request.headers['Content-Type'] == 'application/json':
+            return "JSON Message: " + json.dumps(request.json)
+
+        elif request.headers['Content-Type'] == 'application/octet-stream':
+            f = open('./binary', 'wb')
+            f.write(request.data)
+            f.close()
+            return "Binary message written!"
+
+        else:
+            return "415 Unsupported Media Type ;)"
