@@ -21,7 +21,7 @@ def index():
 def api_reservations():
     if request.method == 'GET':
         playtime = request.args.get('hour')
-        js = RESERVATIONS[playtime]
+        js = json.dumps(RESERVATIONS[playtime])
         resp = Response(js, status=200, mimetype='application/json')
         resp.headers['Link'] = 'http://localhost:5000'
         return resp
