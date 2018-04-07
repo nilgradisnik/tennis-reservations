@@ -9,17 +9,17 @@ for hour in ["10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "
     "player": None
   }
 
-# def test_index():
-#   response = requests.get(SERVER_URL + "/")
-#
-#   assert response.status_code == 200
-#   assert response.text == "Welcome to tennis reservations"
-#
-# def test_get_all_reservations():
-#    response = requests.get(SERVER_URL + "/reservations")
-#
-#    assert response.status_code == 200, "Expected HTTP 200 status"
-#    assert response.json() == RESERVATIONS, "Expected JSON payload"
+def test_index():
+  response = requests.get(SERVER_URL + "/")
+
+  assert response.status_code == 200
+  assert response.text == "Welcome to tennis reservations"
+
+def test_get_all_reservations():
+   response = requests.get(SERVER_URL + "/reservations")
+
+   assert response.status_code == 200, "Expected HTTP 200 status"
+   assert response.json() == RESERVATIONS, "Expected JSON payload"
 
 def test_get_one_reservation():
   response = requests.get(SERVER_URL + "/reservations?hour=11am")

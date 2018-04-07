@@ -20,11 +20,17 @@ def index():
 @app.route('/reservations', methods = ['GET', 'POST'])
 def api_reservations():
     if request.method == 'GET':
-        playtime = request.args.get('hour')
-        js = json.dumps(RESERVATIONS[playtime])
-        resp = Response(js, status=200, mimetype='application/json')
-        resp.headers['Link'] = 'http://localhost:5000'
-        return resp
+        if request.args.get('hour') == True:
+            playtime = request.args.get('hour')
+            js = json.dumps(RESERVATIONS[playtime])
+            resp = Response(js, status=200, mimetype='application/json')
+            resp.headers['Link'] = 'http://localhost:5000'
+            return resp
+        else:
+            js = json.dumps(RESERVATIONS)
+            resp = Response(js, status=200, mimetype='application/json')
+            resp.headers['Link'] = 'http://localhost:5000'
+            return resp
 
     elif request.method == 'POST':
         if request.headers['Content-Type'] == 'text/plain':
