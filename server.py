@@ -20,7 +20,7 @@ def index():
 @app.route('/reservations', methods = ['GET', 'POST'])
 def api_reservations():
     if request.method == 'GET':
-        playtime = request.args.get('playtime')
+        playtime = request.args.get('hour')
         js = RESERVATIONS[playtime]
         resp = Response(js, status=200, mimetype='application/json')
         resp.headers['Link'] = 'http://localhost:5000'
