@@ -20,7 +20,7 @@ def index():
 @app.route('/reservations', methods = ['GET', 'POST'])
 def api_reservations():
     if request.method == 'GET':
-        if request.args.get('hour') == True:
+        if request.args.get('hour'):
             playtime = request.args.get('hour')
             js = json.dumps(RESERVATIONS[playtime])
             resp = Response(js, status=200, mimetype='application/json')

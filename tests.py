@@ -27,13 +27,12 @@ def test_get_one_reservation():
   assert response.status_code == 200, "Expected HTTP 200 status"
   assert response.json() == RESERVATIONS['11am'], "Expected JSON payload for 11am"
 
+def test_create_new_reservation():
+  payload = {
+    "hour": "11am",
+    "player": "Jesse Wang"
+  }
+  response = requests.post(SERVER_URL + "/reservations", json=payload)
 
-# def test_create_new_reservation():
-#   payload = {
-#     "hour": "11am",
-#     "player": "Jesse Wang"
-#   }
-#   response = requests.post(SERVER_URL + "/reservations", json=payload)
-#
-#   assert response.status_code == 201, "Expected HTTP 201 status"
-#   assert response.json() == payload, "Expected JSON payload"
+  assert response.status_code == 201, "Expected HTTP 201 status"
+  assert response.json() == payload, "Expected JSON payload"
