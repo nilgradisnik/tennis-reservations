@@ -32,17 +32,10 @@ def api_reservations():
             return resp
 
     elif request.method == 'POST':
-        if request.headers['Content-Type'] == 'text/plain':
-            return "Text Message: " + request.data
-
-        elif request.headers['Content-Type'] == 'application/json':
-            return "JSON Message: " + json.dumps(request.json)
-
-        elif request.headers['Content-Type'] == 'application/octet-stream':
-            f = open('./binary', 'wb')
-            f.write(request.data)
-            f.close()
-            return "Binary message written!"
-
-        else:
-            return "415 Unsupported Media Type ;)"
+        payload = request.get_json()
+        js = json.dumps(payload)
+        resp = Response(js, status=201, mimetype='application/json')
+        resp.headers['Link'] = 'http://localhost:5000'
+        return resp
+    else:
+        return "415 Unsupported Media Type ;)"
