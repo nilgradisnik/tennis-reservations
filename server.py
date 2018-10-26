@@ -23,19 +23,17 @@ def api_reservations():
             playtime = request.args.get('hour')
             js = json.dumps(RESERVATIONS[playtime])
             resp = Response(js, status=200, mimetype='application/json')
-            resp.headers['Link'] = 'http://localhost:5000'
             return resp
         else:
             js = json.dumps(RESERVATIONS)
             resp = Response(js, status=200, mimetype='application/json')
-            resp.headers['Link'] = 'http://localhost:5000'
             return resp
 
     elif request.method == 'POST':
         payload = request.get_json()
+        RESERVATIONS[payload['hour']] = {'available': False, 'player': payload['player']}
         js = json.dumps(payload)
         resp = Response(js, status=201, mimetype='application/json')
-        resp.headers['Link'] = 'http://localhost:5000'
         return resp
     else:
         return "415 Unsupported Media Type ;)"
