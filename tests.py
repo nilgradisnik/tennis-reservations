@@ -1,4 +1,3 @@
-
 import unittest
 import requests
 
@@ -17,16 +16,16 @@ def test_index():
   assert response.text == "Welcome to tennis reservations"
 
 def test_get_all_reservations():
-  response = requests.get(SERVER_URL + "/reservations")
+   response = requests.get(SERVER_URL + "/reservations")
 
-  assert response.status_code == 200, "Expected HTTP 200 status"
-  assert response.json() == RESERVATIONS, "Expected JSON payload"
+   assert response.status_code == 200, "Expected HTTP 200 status"
+   assert response.json() == RESERVATIONS, "Expected JSON payload"
 
 def test_get_one_reservation():
   response = requests.get(SERVER_URL + "/reservations?hour=11am")
 
   assert response.status_code == 200, "Expected HTTP 200 status"
-  assert response.json() == RESERVATIONS["11am"], "Expected JSON payload"
+  assert response.json() == RESERVATIONS['11am'], "Expected JSON payload for 11am"
 
 def test_create_new_reservation():
   payload = {
