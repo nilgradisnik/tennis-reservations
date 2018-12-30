@@ -19,7 +19,7 @@ def index():
 @app.route('/reservations', methods = ['GET', 'POST'])
 def api_reservations():
     if request.method == 'GET':
-        if request.args.get('hour') not in RESERVATIONS.keys():
+        if request.args.get('hour') not in RESERVATIONS.keys() and request.args.get('hour') is not None:
             resp = Response(response='Invalid hour format', status=400)
             return resp
         elif request.args.get('hour') in RESERVATIONS.keys():
@@ -27,7 +27,7 @@ def api_reservations():
             js = json.dumps(RESERVATIONS[playtime])
             resp = Response(js, status=200, mimetype='application/json')
             return resp
-        elif request.args.get():
+        elif request.args.get('hour') is None:
             js = json.dumps(RESERVATIONS)
             resp = Response(js, status=200, mimetype='application/json')
             return resp
