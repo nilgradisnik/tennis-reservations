@@ -20,22 +20,22 @@ def test_get_all_reservations():
 
    assert response.status_code == 200, "Expected HTTP 200 status"
    assert response.json() == RESERVATIONS, "Expected JSON payload"
-#
-# def test_get_one_reservation():
-#   response = requests.get(SERVER_URL + "/reservations?hour=11am")
-#
-#   assert response.status_code == 200, "Expected HTTP 200 status"
-#   assert response.json() == RESERVATIONS['11am'], "Expected JSON payload for 11am"
-#
-# def test_create_new_reservation():
-#   payload = {
-#     "hour": "11am",
-#     "player": "Jesse Wang"
-#   }
-#   response = requests.post(SERVER_URL + "/reservations", json=payload)
-#
-#   assert response.status_code == 201, "Expected HTTP 201 status"
-#   assert response.json() == payload, "Expected JSON payload"
+
+def test_get_one_reservation():
+  response = requests.get(SERVER_URL + "/reservations?hour=11am")
+
+  assert response.status_code == 200, "Expected HTTP 200 status"
+  assert response.json() == RESERVATIONS['11am'], "Expected JSON payload for 11am"
+
+def test_create_new_reservation():
+  payload = {
+    "hour": "11am",
+    "player": "Jesse Wang"
+  }
+  response = requests.post(SERVER_URL + "/reservations", json=payload)
+
+  assert response.status_code == 201, "Expected HTTP 201 status"
+  assert response.json() == payload, "Expected JSON payload"
 
 
 def test_get_one_reservation_error():
@@ -44,40 +44,40 @@ def test_get_one_reservation_error():
   assert response.status_code == 400, "Expected HTTP 400 status"
   assert response.text == "Invalid hour format"
 
-# def test_create_new_reservation_error():
-#   payload = 'foo'
-#   response = requests.post(SERVER_URL + "/reservations", json=payload)
-#
-#   assert response.status_code == 400, "Expected HTTP 400 status"
-#   assert response.text == "Invalid body"
-#
-# def test_create_new_reservation_error():
-#   payload = {
-#     "hour": "foo",
-#     "player": "Jesse Wang"
-#   }
-#   response = requests.post(SERVER_URL + "/reservations", json=payload)
-#
-#   assert response.status_code == 400, "Expected HTTP 400 status"
-#   assert response.text == "Invalid hour"
-#
-# def test_create_new_reservation_error():
-#   payload = {
-#     "hour": "11am",
-#     "player": None
-#   }
-#   response = requests.post(SERVER_URL + "/reservations", json=payload)
-#
-#   assert response.status_code == 400, "Expected HTTP 400 status"
-#   assert response.text == "Invalid player"
-#
-# def test_create_new_reservation_error():
-#   payload = {
-#     "hour": "11am",
-#     "player": "Jesse Wang"
-#   }
-#   response = requests.post(SERVER_URL + "/reservations", json=payload)
-#
-#   assert response.status_code == 409, "Expected HTTP 409 status"
-#   assert response.text == "Reservation already exists"
-#
+def test_create_new_reservation_error():
+  payload = 'foo'
+  response = requests.post(SERVER_URL + "/reservations", json=payload)
+
+  assert response.status_code == 400, "Expected HTTP 400 status"
+  assert response.text == "Invalid body"
+
+def test_create_new_reservation_error():
+  payload = {
+    "hour": "foo",
+    "player": "Jesse Wang"
+  }
+  response = requests.post(SERVER_URL + "/reservations", json=payload)
+
+  assert response.status_code == 400, "Expected HTTP 400 status"
+  assert response.text == "Invalid hour"
+
+def test_create_new_reservation_error():
+  payload = {
+    "hour": "11am",
+    "player": None
+  }
+  response = requests.post(SERVER_URL + "/reservations", json=payload)
+
+  assert response.status_code == 400, "Expected HTTP 400 status"
+  assert response.text == "Invalid player"
+
+def test_create_new_reservation_error():
+  payload = {
+    "hour": "11am",
+    "player": "Jesse Wang"
+  }
+  response = requests.post(SERVER_URL + "/reservations", json=payload)
+
+  assert response.status_code == 409, "Expected HTTP 409 status"
+  assert response.text == "Reservation already exists"
+  
