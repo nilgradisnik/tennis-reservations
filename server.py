@@ -19,21 +19,27 @@ def index():
 @app.route('/reservations', methods = ['GET', 'POST'])
 def api_reservations():
     if request.method == 'GET':
-        if request.args.get('hour'):
+        if request.args.get('hour') not in RESERVATIONS.keys():
+            resp = Response(response='Invalid hour format', status=400)
+            return resp
+        elif request.args.get('hour') in RESERVATIONS.keys():
             playtime = request.args.get('hour')
             js = json.dumps(RESERVATIONS[playtime])
             resp = Response(js, status=200, mimetype='application/json')
             return resp
-        else:
+        elif request.args.get():
             js = json.dumps(RESERVATIONS)
             resp = Response(js, status=200, mimetype='application/json')
             return resp
-
     elif request.method == 'POST':
-        payload = request.get_json()
-        RESERVATIONS[payload['hour']] = {'available': False, 'player': payload['player']}
-        js = json.dumps(payload)
-        resp = Response(js, status=201, mimetype='application/json')
-        return resp
+        if request.args.get('hour') in RESERVATIONS.keys():
+            payload = request.get_json()
+            RESERVATIONS[payload['hour']] = {'available': False, 'player': payload['player']}
+            js = json.dumps(payload)
+            resp = Response(js, status=201, mimetype='application/json')
+            return resp
+        else:
+            resp = Response(response='Invalid body', status=400, mimetype='application/json' )
+            return resp
     else:
-        return "415 Unsupported Media Type ;)"
+        return "Unsupported media type ;)"
