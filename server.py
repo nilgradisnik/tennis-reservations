@@ -12,7 +12,9 @@ for hour in ["10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "
     "player": None
 }
 
-
+@app.route("/")
+def index():
+    return "Welcome to tennis reservations"
 
 @app.route('/reservations', methods = ['GET'])
 def reservations_get():
@@ -31,18 +33,19 @@ def reservations_get():
 
 @app.route('/reservations', methods = ['POST'])
 def reservations_post():
-    if request.get_json() is None:
+    payload = request.get_json()
+    print(payload['hour'])
+    if not request.is_json:
         resp = Response(status = 400, response='Invalid body')
         return resp
-    elif request.args.get('hour') not in RESERVATIONS.keys():
+    elif payload['hour'] is False:
         resp = Response(status = 400, response='Invalid hour')
         return resp
-    elif request.args.get('hour') in RESERVATIONS.keys():
-        payload = request.get_json()
+    elif payload['hour'] in RESERVATIONS.keys() is True:
         RESERVATIONS[payload['hour']] = {'available': False, 'player': payload['player']}
-        js = json.dumps(payload)
+        js = json.dumps(pl)
         resp = Response(js, status=201, mimetype='application/json')
         return resp
-    # else:
-    #     resp = Response(response='Invalid body', status=400, mimetype='application/json' )
-    #     return resp
+    else:
+        resp = Response(response='Unsupported media type', status=400, mimetype='application/json' )
+        return resp
