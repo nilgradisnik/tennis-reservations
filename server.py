@@ -41,9 +41,9 @@ def reservations_post():
     elif payload['hour'] is False:
         resp = Response(status = 400, response='Invalid hour')
         return resp
-    elif payload['hour'] in RESERVATIONS.keys() is True:
+    elif payload['hour'] in RESERVATIONS.keys():
         RESERVATIONS[payload['hour']] = {'available': False, 'player': payload['player']}
-        js = json.dumps(pl)
+        js = json.dumps(payload)
         resp = Response(js, status=201, mimetype='application/json')
         return resp
     else:
