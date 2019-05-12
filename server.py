@@ -31,15 +31,27 @@ def reservations_get():
         resp = Response(js, status=200, mimetype='application/json')
         return resp
 
+# Validate JSON data
+def is_json(myjson):
+  try:
+    json.loads(myjson.data.decode('utf-8'))
+  except ValueError:
+    return False
+  return True
+
 @app.route('/reservations', methods = ['POST'])
 def reservations_post():
     payload = request.get_json()
-    print(payload['hour'])
-    if not request.is_json:
+    print(payload)
+    if is_json(request) is False:
+        print(payload)
         resp = Response(status = 400, response='Invalid body')
         return resp
     elif payload['hour'] is False:
         resp = Response(status = 400, response='Invalid hour')
+        return resp
+    elif RESERVATIONS[payload['hour']]['available'] == False:
+        resp = Response(response= 'Reservation already exists', status=409, mimetype='application/json')
         return resp
     elif payload['hour'] in RESERVATIONS.keys():
         RESERVATIONS[payload['hour']] = {'available': False, 'player': payload['player']}
