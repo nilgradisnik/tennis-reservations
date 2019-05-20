@@ -42,9 +42,7 @@ def is_json(myjson):
 @app.route('/reservations', methods = ['POST'])
 def reservations_post():
     payload = request.get_json()
-    print(payload)
     if is_json(request) is False:
-        print(payload)
         resp = Response(status = 400, response='Invalid body')
         return resp
     elif payload['hour'] is False:
